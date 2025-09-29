@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+         http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+         version="2.4">
+
+    <display-name>CourseManagementDemo</display-name>
+
+    <!-- Default welcome page -->
+    <welcome-file-list>
+        <welcome-file>home.jsp</welcome-file>
+    </welcome-file-list>
+
+    <!-- Signup Servlet -->
+    <servlet>
+        <servlet-name>SignupServlet</servlet-name>
+        <servlet-class>cse.web.SignupServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SignupServlet</servlet-name>
+        <url-pattern>/SignupServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- Login Servlet -->
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>cse.web.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- Logout Servlet -->
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>cse.web.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
+    <!-- Dashboard Servlet 
+    <servlet>
+        <servlet-name>DashboardServlet</servlet-name>
+        <servlet-class>cse.web.DashboardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DashboardServlet</servlet-name>
+        <url-pattern>/dashboard</url-pattern>
+    </servlet-mapping> -->
+
+    <!-- Add Teacher Servlet -->
+    <servlet>
+        <servlet-name>AddTeacherServlet</servlet-name>
+        <servlet-class>cse.web.AddTeacherServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddTeacherServlet</servlet-name>
+        <url-pattern>/addTeacher</url-pattern>
+    </servlet-mapping>
+
+    <!-- Add Course Servlet -->
+    <servlet>
+        <servlet-name>AddCourseServlet</servlet-name>
+        <servlet-class>cse.web.AddCourseServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddCourseServlet</servlet-name>
+        <url-pattern>/AddCourseServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- Register Course Servlet (Student) -->
+    <servlet>
+        <servlet-name>RegisterCourseServlet</servlet-name>
+        <servlet-class>cse.web.RegisterCourseServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterCourseServlet</servlet-name>
+        <url-pattern>/RegisterCourseServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- View Students Servlet (Teacher) -->
+    <servlet>
+        <servlet-name>ViewStudentsServlet</servlet-name>
+        <servlet-class>cse.web.ViewStudentsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewStudentsServlet</servlet-name>
+        <url-pattern>/viewStudents</url-pattern>
+    </servlet-mapping>
+
+    <!-- View Courses Servlet (Admin) 
+    <servlet>
+        <servlet-name>ViewCourseServlet</servlet-name>
+        <servlet-class>cse.web.ViewCourseServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewCourseServlet</servlet-name>
+        <url-pattern>/viewCourses</url-pattern>
+    </servlet-mapping>
+
+    View Teachers Servlet (Admin) 
+    <servlet>
+        <servlet-name>ViewTeacherServlet</servlet-name>
+        <servlet-class>cse.web.ViewTeacherServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewTeacherServlet</servlet-name>
+        <url-pattern>/viewTeachers</url-pattern>
+    </servlet-mapping> -->
+     
+     <!-- Delete Course Servlet -->
+    <servlet>
+        <servlet-name>DeleteCourseServlet</servlet-name>
+        <servlet-class>cse.web.DeleteCourseServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteCourseServlet</servlet-name>
+        <url-pattern>/DeleteCourseServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- Edit Course Servlet -->
+    <servlet>
+        <servlet-name>EditCourseServlet</servlet-name>
+        <servlet-class>cse.web.EditCourseServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditCourseServlet</servlet-name>
+        <url-pattern>/EditCourseServlet</url-pattern>
+    </servlet-mapping>
+
+</web-app>
