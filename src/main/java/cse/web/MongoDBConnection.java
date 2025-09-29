@@ -13,6 +13,6 @@ public class MongoDBConnection {
         if (mongoClient == null) {
             mongoClient = MongoClients.create(CONNECTION_STRING);
         }
-        return mongoClient.getDatabase("course_management"); // your DB name
+        return mongoClient.getDatabase("course_management"); // DB name
     }
 }
