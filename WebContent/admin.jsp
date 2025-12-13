@@ -6,6 +6,7 @@
         response.sendRedirect("home.jsp");
         return;
     }
+    String username = (String) session.getAttribute("username");
 
     MongoDatabase db = MongoDBConnection.getDatabase();
     MongoCollection<Document> teachers = db.getCollection("users");
@@ -37,11 +38,14 @@
 
 <div class="bg-[#005461]/80 backdrop-blur-xl text-white rounded-3xl shadow-2xl p-12 space-y-12">
 
-    <h1 class="text-4xl font-extrabold">Admin Dashboard</h1>
+    <h1 class="text-5xl font-bold mb-6 drop-shadow text-center">
+    Welcome <span class="text-white/90"><%= username%>!</span>
+</h1>
+
 
     <!-- Add Course -->
     <section>
-        <h2 class="text-2xl font-semibold mb-4">Add New Course</h2>
+        <h2 class="text-3xl font-semibold mb-4">Add New Course</h2>
 
         <% if(errorMessage != null) { %>
             <div class="bg-red-600 p-3 rounded-lg mb-4"><%= errorMessage %></div>
@@ -75,54 +79,55 @@
     </section>
 
     <!-- Courses Table -->
-    <section class="bg-white/90 text-[#005461] rounded-2xl p-8 shadow-xl">
-        <h2 class="text-2xl font-bold mb-6">All Courses</h2>
+<section class="bg-white/90 text-[#005461] rounded-2xl p-8 shadow-xl">
+    <h2 class="text-3xl font-bold mb-6">All Courses</h2>
 
-        <table class="w-full border-collapse">
-            <thead class="bg-[#005461] text-white">
-                <tr>
-                    <th class="px-5 py-3 text-left">Code</th>
-                    <th class="px-5 py-3 text-left">Name</th>
-                    <th class="px-5 py-3 text-left">Teacher</th>
-                    <th class="px-5 py-3 text-center">Actions</th>
-                </tr>
-            </thead>
+    <table class="w-full border-collapse text-lg"> <!-- Increased font size -->
+        <thead class="bg-[#005461] text-white text-xl"> <!-- Header bigger -->
+            <tr>
+                <th class="px-5 py-3 text-left">Code</th>
+                <th class="px-5 py-3 text-left">Name</th>
+                <th class="px-5 py-3 text-left">Teacher</th>
+                <th class="px-5 py-3 text-center">Actions</th>
+            </tr>
+        </thead>
 
-            <tbody>
-            <%
-                MongoCursor<Document> cursor = courses.find().iterator();
-                while(cursor.hasNext()) {
-                    Document c = cursor.next();
-            %>
-                <tr class="border-b even:bg-gray-50">
-                    <td class="px-5 py-3 font-semibold"><%= c.getString("code") %></td>
-                    <td class="px-5 py-3"><%= c.getString("name") %></td>
-                    <td class="px-5 py-3"><%= c.getString("teacher") %></td>
+        <tbody class="text-lg"> <!-- Body bigger -->
+        <%
+            MongoCursor<Document> cursor = courses.find().iterator();
+            while(cursor.hasNext()) {
+                Document c = cursor.next();
+        %>
+            <tr class="border-b even:bg-gray-50">
+                <td class="px-5 py-3 font-semibold"><%= c.getString("code") %></td>
+                <td class="px-5 py-3"><%= c.getString("name") %></td>
+                <td class="px-5 py-3"><%= c.getString("teacher") %></td>
 
-                    <!-- FIXED ACTION COLUMN -->
-                    <td class="px-5 py-3">
-                        <div class="flex justify-center gap-3">
-                            <form action="EditCourseServlet" method="get">
-                                <input type="hidden" name="courseCode" value="<%= c.getString("code") %>">
-                                <button class="bg-blue-600 text-white px-4 py-1 rounded-lg shadow">
-                                    Edit
-                                </button>
-                            </form>
+                <!-- Actions -->
+                <td class="px-5 py-3">
+                    <div class="flex justify-center gap-3">
+                        <form action="EditCourseServlet" method="get">
+                            <input type="hidden" name="courseCode" value="<%= c.getString("code") %>">
+                            <button class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow text-lg">
+                                Edit
+                            </button>
+                        </form>
 
-                            <form action="DeleteCourseServlet" method="post"
-                                  onsubmit="return confirm('Delete this course?');">
-                                <input type="hidden" name="courseCode" value="<%= c.getString("code") %>">
-                                <button class="bg-red-600 text-white px-4 py-1 rounded-lg shadow">
-                                    Delete
-                                </button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-            <% } %>
-            </tbody>
-        </table>
-    </section>
+                        <form action="DeleteCourseServlet" method="post"
+                              onsubmit="return confirm('Delete this course?');">
+                            <input type="hidden" name="courseCode" value="<%= c.getString("code") %>">
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg shadow text-lg">
+                                Delete
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        <% } %>
+        </tbody>
+    </table>
+</section>
+
 
 </div>
 </main>

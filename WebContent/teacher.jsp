@@ -34,7 +34,10 @@
 
 <div class="bg-[#005461]/80 backdrop-blur-xl text-white rounded-3xl shadow-2xl p-12">
 
-    <h1 class="text-4xl font-bold mb-10">Teacher Dashboard</h1>
+    <h2 class="text-5xl font-bold mb-6 drop-shadow text-center">
+    Welcome <span class="text-white/90"><%= teacher%>!</span>
+</h2>
+
 
     <h2 class="text-2xl font-semibold mb-4">Select Course</h2>
 

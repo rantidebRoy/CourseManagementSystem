@@ -35,7 +35,10 @@
 
 <div class="bg-[#005461]/80 backdrop-blur-xl text-white rounded-3xl shadow-2xl p-12">
 
-    <h1 class="text-4xl font-bold mb-10">Student Dashboard</h1>
+    <h1 class="text-5xl font-bold mb-6 drop-shadow text-center">
+    Welcome <span class="text-white/90"><%= student%>!</span>
+</h1>
+
 
     <!-- Register -->
     <div class="mb-10">
