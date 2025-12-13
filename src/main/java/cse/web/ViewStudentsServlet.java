@@ -21,17 +21,25 @@ public class ViewStudentsServlet extends HttpServlet {
         }
 
         MongoDatabase db = MongoDBConnection.getDatabase();
-        MongoCollection<Document> regs = db.getCollection("registrations");
 
+        // Fetch students from registrations
+        MongoCollection<Document> regs = db.getCollection("registrations");
         List<String> students = new ArrayList<>();
         for (Document r : regs.find(new Document("courseCode", courseCode))) {
             students.add(r.getString("student"));
         }
 
+        // Fetch course document to get course name
+        MongoCollection<Document> courses = db.getCollection("courses");
+        Document courseDoc = courses.find(new Document("code", courseCode)).first();
+        String courseName = (courseDoc != null) ? courseDoc.getString("name") : "Unknown";
+
+        // Set request attributes
         request.setAttribute("courseCode", courseCode);
+        request.setAttribute("courseName", courseName);
         request.setAttribute("students", students);
 
-        // forward to your JSP
+        // Forward to JSP
         RequestDispatcher rd = request.getRequestDispatcher("view_students.jsp");
         rd.forward(request, response);
     }

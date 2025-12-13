@@ -4,45 +4,81 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Home</title>
+<title>Home | Course Management System</title>
 <script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+    @keyframes enter {
+        0% {
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+    .animate-enter {
+        animation: enter 0.9s ease-out forwards;
+    }
+</style>
 </head>
 
-<body class="min-h-screen flex flex-col items-center justify-between bg-gradient-to-br from-[#938899] via-[#a79eac] to-[#938899]">
+<body class="min-h-screen flex flex-col
+             items-center justify-center
+             bg-gradient-to-br from-[#938899] via-[#a79eac] to-[#938899]">
 
-    <!-- Main Card -->
-    <div class="w-full max-w-lg bg-[#D64029] text-white rounded-2xl shadow-2xl p-10 mt-20">
+    <!-- Animated Glass Card -->
+    <div class="w-full max-w-5xl px-6 animate-enter">
+        <div
+            class="relative rounded-3xl p-16
+                   bg-[#005461]/70
+                   backdrop-blur-2xl
+                   border border-white/30
+                   shadow-[0_25px_60px_rgba(0,0,0,0.45)]
+                   text-white">
 
-        <h1 class="text-4xl font-bold text-center mb-2 drop-shadow-md">
-            Welcome to Course Management System
-        </h1>
+            <!-- Glass highlight -->
+            <div class="absolute inset-0 rounded-3xl bg-white/10 blur-2xl -z-10"></div>
 
-        <!-- Subtitle -->
-        <p class="text-center text-lg opacity-90 mb-8">
-            Manage your courses, users, and resources efficiently.
-        </p>
+            <h1 class="text-6xl font-extrabold text-center mb-4 drop-shadow-xl">
+                Welcome to Course Management System
+            </h1>
 
-        <div class="flex flex-col gap-5 mt-6">
+            <p class="text-center text-2xl opacity-90 max-w-4xl mx-auto mb-14">
+                Manage your courses, users, enrollments, and academic resources
+                efficiently in one centralized platform.
+            </p>
 
-            <!-- Login Button -->
-            <a href="login.jsp"
-               class="block text-center py-3 rounded-lg font-semibold bg-white text-[#D64029] shadow-lg hover:bg-[#f7e5e3] hover:shadow-xl transition-all duration-300">
-                Login
-            </a>
+            <div class="flex flex-col sm:flex-row gap-8 justify-center">
 
-            <!-- Signup Button -->
-            <a href="signup.jsp"
-               class="block text-center py-3 rounded-lg font-semibold bg-white text-[#D64029] shadow-lg hover:bg-[#f7e5e3] hover:shadow-xl transition-all duration-300">
-                Sign Up
-            </a>
+                <a href="login.jsp"
+                   class="px-16 py-5 text-xl font-semibold rounded-xl
+                          bg-white text-[#005461]
+                          shadow-xl hover:shadow-2xl
+                          hover:bg-[#f7e5e3]
+                          hover:scale-105
+                          transition-all duration-300 text-center">
+                    Login
+                </a>
 
+                <a href="signup.jsp"
+                   class="px-16 py-5 text-xl font-semibold rounded-xl
+                          bg-white text-[#005461]
+                          shadow-xl hover:shadow-2xl
+                          hover:bg-[#f7e5e3]
+                          hover:scale-105
+                          transition-all duration-300 text-center">
+                    Sign Up
+                </a>
+
+            </div>
         </div>
-
     </div>
 
     <!-- Footer -->
-    <footer class="text-white text-sm mt-10 mb-6 opacity-90 text-center">
-        2025 Course Management System | All Rights Reserved | 2022331023_057
+    <footer class="absolute bottom-6 text-white text-sm opacity-90 text-center">
+        © 2025 Course Management System | All Rights Reserved | 2022331023_057
     </footer>
 
 </body>

@@ -13,121 +13,118 @@
 
     String errorMessage = (String) request.getAttribute("errorMessage");
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Admin Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<title>Admin Dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-[#938899] via-[#a79eac] to-[#938899] text-gray-900 flex flex-col">
 
-    <!-- Logout button -->
-    <div class="flex justify-end p-4">
-        <form action="logout" method="post">
-            <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded shadow font-semibold transition">
-                Logout
-            </button>
+<body class="min-h-screen bg-gradient-to-br from-[#938899] via-[#a79eac] to-[#938899]">
+
+<!-- Logout -->
+<div class="flex justify-end p-6">
+    <form action="logout" method="post">
+        <button class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg shadow font-semibold">
+            Logout
+        </button>
+    </form>
+</div>
+
+<main class="max-w-7xl mx-auto px-6 pb-10">
+
+<div class="bg-[#005461]/80 backdrop-blur-xl text-white rounded-3xl shadow-2xl p-12 space-y-12">
+
+    <h1 class="text-4xl font-extrabold">Admin Dashboard</h1>
+
+    <!-- Add Course -->
+    <section>
+        <h2 class="text-2xl font-semibold mb-4">Add New Course</h2>
+
+        <% if(errorMessage != null) { %>
+            <div class="bg-red-600 p-3 rounded-lg mb-4"><%= errorMessage %></div>
+        <% } %>
+
+        <form action="AddCourseServlet" method="post"
+              class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+            <input name="courseCode" placeholder="Course Code" required
+                   class="p-4 rounded-lg text-[#005461] font-semibold shadow">
+
+            <input name="courseName" placeholder="Course Name" required
+                   class="p-4 rounded-lg text-[#005461] font-semibold shadow">
+
+            <select name="teacher" required
+                    class="p-4 rounded-lg text-[#005461] font-semibold shadow">
+                <option value="">Select Teacher</option>
+                <% for(Document t : teachers.find(new Document("role","teacher"))) { %>
+                    <option value="<%= t.getString("username") %>">
+                        <%= t.getString("username") %>
+                    </option>
+                <% } %>
+            </select>
+
+            <div class="md:col-span-3 text-right">
+                <button class="bg-white text-[#005461] px-8 py-3 rounded-lg font-semibold shadow">
+                    Add Course
+                </button>
+            </div>
         </form>
-    </div>
+    </section>
 
-    <main class="container mx-auto px-6 flex-grow space-y-10">
+    <!-- Courses Table -->
+    <section class="bg-white/90 text-[#005461] rounded-2xl p-8 shadow-xl">
+        <h2 class="text-2xl font-bold mb-6">All Courses</h2>
 
-        <!-- Add Course Card -->
-        <section class="bg-[#D64029] rounded-2xl shadow-2xl p-8 max-w-5xl mx-auto text-white">
-            <h2 class="text-3xl font-bold mb-6 drop-shadow">Admin Dashboard</h2>
-            <h3 class="text-xl font-semibold mb-4">Add a New Course</h3>
+        <table class="w-full border-collapse">
+            <thead class="bg-[#005461] text-white">
+                <tr>
+                    <th class="px-5 py-3 text-left">Code</th>
+                    <th class="px-5 py-3 text-left">Name</th>
+                    <th class="px-5 py-3 text-left">Teacher</th>
+                    <th class="px-5 py-3 text-center">Actions</th>
+                </tr>
+            </thead>
 
-            <% if (errorMessage != null) { %>
-                <div class="bg-red-700 text-white p-3 rounded mb-6 shadow-md">
-                    <%= errorMessage %>
-                </div>
+            <tbody>
+            <%
+                MongoCursor<Document> cursor = courses.find().iterator();
+                while(cursor.hasNext()) {
+                    Document c = cursor.next();
+            %>
+                <tr class="border-b even:bg-gray-50">
+                    <td class="px-5 py-3 font-semibold"><%= c.getString("code") %></td>
+                    <td class="px-5 py-3"><%= c.getString("name") %></td>
+                    <td class="px-5 py-3"><%= c.getString("teacher") %></td>
+
+                    <!-- FIXED ACTION COLUMN -->
+                    <td class="px-5 py-3">
+                        <div class="flex justify-center gap-3">
+                            <form action="EditCourseServlet" method="get">
+                                <input type="hidden" name="courseCode" value="<%= c.getString("code") %>">
+                                <button class="bg-blue-600 text-white px-4 py-1 rounded-lg shadow">
+                                    Edit
+                                </button>
+                            </form>
+
+                            <form action="DeleteCourseServlet" method="post"
+                                  onsubmit="return confirm('Delete this course?');">
+                                <input type="hidden" name="courseCode" value="<%= c.getString("code") %>">
+                                <button class="bg-red-600 text-white px-4 py-1 rounded-lg shadow">
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
             <% } %>
+            </tbody>
+        </table>
+    </section>
 
-            <form action="AddCourseServlet" method="post" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <input type="text" name="courseCode" placeholder="Course Code" required
-                    class="p-3 rounded-lg text-[#D64029] font-semibold focus:outline-none shadow" />
-                <input type="text" name="courseName" placeholder="Course Name" required
-                    class="p-3 rounded-lg text-[#D64029] font-semibold focus:outline-none shadow" />
-                <select name="teacher" required
-                    class="p-3 rounded-lg text-[#D64029] font-semibold focus:outline-none shadow">
-                    <option value="">Select Teacher</option>
-                    <% for(Document t : teachers.find(new Document("role","teacher"))) { %>
-                        <option value="<%= t.getString("username") %>"><%= t.getString("username") %></option>
-                    <% } %>
-                </select>
-                <div class="md:col-span-3 text-right">
-                    <button type="submit"
-                        class="bg-white text-[#D64029] font-semibold py-3 px-6 rounded-lg shadow hover:bg-[#ffe1dc] transition">
-                        Add Course
-                    </button>
-                </div>
-            </form>
-        </section>
-
-        <!-- All Courses Card -->
-        <section class="bg-[#F7D9D9] rounded-2xl shadow-2xl p-8 max-w-5xl mx-auto text-gray-900">
-            <h3 class="text-2xl font-bold mb-6 drop-shadow-md">All Courses and Assigned Teachers</h3>
-
-            <%
-                MongoCursor<Document> courseCursor = courses.find().iterator();
-                if(!courseCursor.hasNext()) {
-            %>
-                <p class="text-gray-600 italic">No courses added yet.</p>
-            <%
-                } else {
-            %>
-                <table class="min-w-full border border-gray-300 rounded-lg overflow-hidden shadow-md">
-                    <thead class="bg-[#D64029] text-white">
-                        <tr>
-                            <th class="px-4 py-3 text-left">Course Code</th>
-                            <th class="px-4 py-3 text-left">Course Name</th>
-                            <th class="px-4 py-3 text-left">Assigned Teacher</th>
-                            <th class="px-4 py-3 text-left">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <%
-                            while(courseCursor.hasNext()) {
-                                Document c = courseCursor.next();
-                                String code = c.getString("code");
-                        %>
-                        <tr class="even:bg-white odd:bg-[#ffe1dc]">
-                            <td class="px-4 py-3 font-semibold"><%= code %></td>
-                            <td class="px-4 py-3"><%= c.getString("name") %></td>
-                            <td class="px-4 py-3"><%= c.getString("teacher") %></td>
-                            <td class="px-4 py-3 space-x-2">
-
-                                <form action="EditCourseServlet" method="get" class="inline-block">
-                                    <input type="hidden" name="courseCode" value="<%= code %>" />
-										<button type="submit"
-										    class="bg-[#FF8E72] hover:bg-[#ff7a59] text-white px-3 py-1 rounded shadow font-semibold transition">
-										    Edit
-										</button>
-								</form>
-
-                                <form action="DeleteCourseServlet" method="post" class="inline-block" 
-                                      onsubmit="return confirm('Are you sure you want to delete this course?');">
-                                    <input type="hidden" name="courseCode" value="<%= code %>" />
-                                    <button type="submit"
-									    class="bg-[#D64029] hover:bg-[#B7311E] text-white px-3 py-1 rounded shadow font-semibold transition">
-									    Delete
-									</button>
-
-                                </form>
-
-                            </td>
-                        </tr>
-                        <%
-                            }
-                        %>
-                    </tbody>
-                </table>
-            <%
-                }
-            %>
-        </section>
-
-    </main>
+</div>
+</main>
 </body>
 </html>
