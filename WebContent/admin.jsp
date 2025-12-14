@@ -23,7 +23,10 @@
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="min-h-screen bg-gradient-to-br from-[#938899] via-[#a79eac] to-[#938899]">
+<body class="min-h-screen bg-gradient-to-br
+             from-slate-800
+             via-slate-900
+             to-black">
 
 <!-- Logout -->
 <div class="flex justify-end p-6">
@@ -108,7 +111,7 @@
                     <div class="flex justify-center gap-3">
                         <form action="EditCourseServlet" method="get">
                             <input type="hidden" name="courseCode" value="<%= c.getString("code") %>">
-                            <button class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow text-lg">
+                            <button class="bg-[#005461] text-white px-4 py-2 rounded-lg shadow text-lg">
                                 Edit
                             </button>
                         </form>

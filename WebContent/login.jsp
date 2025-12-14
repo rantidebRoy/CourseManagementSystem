@@ -18,7 +18,10 @@
 </head>
 
 <body class="min-h-screen flex items-center justify-center
-             bg-gradient-to-br from-[#938899] via-[#a79eac] to-[#938899]">
+             bg-gradient-to-br
+             from-slate-800
+             via-slate-900
+             to-black">
 
 <div class="w-full max-w-3xl px-6 animate-enter">
     <div class="relative rounded-3xl p-14
@@ -90,7 +93,7 @@
         </form>
 
         <p class="mt-10 text-center text-lg">
-            Don’t have an account?
+            Don't have an account?
             <a href="signup.jsp" class="font-semibold underline">Sign Up</a>
         </p>
 

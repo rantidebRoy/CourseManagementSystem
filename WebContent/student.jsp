@@ -21,7 +21,10 @@
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="min-h-screen bg-gradient-to-br from-[#938899] via-[#a79eac] to-[#938899]">
+<body class="min-h-screen bg-gradient-to-br
+             from-slate-800
+             via-slate-900
+             to-black">
 
 <div class="flex justify-end p-6">
     <form action="logout" method="post">

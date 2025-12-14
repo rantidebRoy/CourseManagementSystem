@@ -24,9 +24,13 @@
 </style>
 </head>
 
-<body class="min-h-screen flex flex-col
-             items-center justify-center
-             bg-gradient-to-br from-[#938899] via-[#a79eac] to-[#938899]">
+<body class="min-h-screen flex flex-col items-center justify-center
+             bg-gradient-to-br
+             from-slate-800
+             via-slate-900
+             to-black">
+
+
 
     <!-- Animated Glass Card -->
     <div class="w-full max-w-5xl px-6 animate-enter">
