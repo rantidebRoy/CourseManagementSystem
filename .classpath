@@ -16,5 +16,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mongodb-driver-sync-4.11.1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mongodb-driver-core-4.11.1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/bson-4.11.1.jar"/>
+	<classpathentry kind="lib" path="/home/rantideb-roy/Downloads/jbcrypt-0.4.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -1,27 +1,24 @@
-<%@ page session="true"%>
+<%@ page session="true" %> <%-- Enables HTTP session to allow Servlets to store user login data --%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Login | Course Management System</title>
-<script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <title>Login | Course Management System</title>
 
-<style>
-    @keyframes enter {
-        0% { opacity: 0; transform: translateY(40px) scale(0.95); }
-        100% { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    .animate-enter {
-        animation: enter 0.8s ease-out forwards;
-    }
-</style>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Optional: Animation for page load -->
+    <style>
+        @keyframes enter {
+            0% { opacity: 0; transform: translateY(40px) scale(0.95); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .animate-enter { animation: enter 0.8s ease-out forwards; }
+    </style>
 </head>
 
 <body class="min-h-screen flex items-center justify-center
-             bg-gradient-to-br
-             from-slate-800
-             via-slate-900
-             to-black">
+             bg-gradient-to-br from-slate-800 via-slate-900 to-black">
 
 <div class="w-full max-w-3xl px-6 animate-enter">
     <div class="relative rounded-3xl p-14
@@ -38,29 +35,32 @@
             Access your dashboard securely
         </p>
 
+        <!-- Form sends credentials to LoginServlet for authentication -->
         <form action="LoginServlet" method="post"
-              class="flex flex-col gap-8 max-w-xl mx-auto">
+              class="flex flex-col gap-8 max-w-xl mx-auto"> <!-- JSP → Servlet connection -->
 
-            <input type="text" name="username" required
+            <!-- Username input -->
+            <input type="text"
+                   name="username" required
                    placeholder="Username"
                    class="w-full px-5 py-4 rounded-xl
                           bg-white text-[#005461]
-                          font-semibold text-lg
-                          shadow-md focus:outline-none">
+                          font-semibold text-lg"> <!-- username param sent to Servlet -->
 
-            <!-- Password with Eye Icon -->
+            <!-- Password input with show/hide toggle -->
             <div class="relative">
-                <input type="password" name="password" id="loginPassword" required
+                <input type="password"
+                       name="password" id="loginPassword" required
                        placeholder="Password"
                        class="w-full px-5 py-4 rounded-xl
                               bg-white text-[#005461]
-                              font-semibold text-lg
-                              shadow-md focus:outline-none pr-14">
+                              font-semibold text-lg pr-14"> <!-- password param sent to Servlet -->
 
+                <!-- Toggle button for show/hide password -->
                 <button type="button"
                         onclick="togglePassword('loginPassword', this)"
                         class="absolute right-4 top-1/2 -translate-y-1/2 text-[#005461]">
-                    <!-- Eye Icon -->
+                    <!-- Eye icon (visible when password is hidden) -->
                     <svg xmlns="http://www.w3.org/2000/svg"
                          class="w-6 h-6 eye-open"
                          fill="none" viewBox="0 0 24 24"
@@ -69,7 +69,7 @@
                         <circle cx="12" cy="12" r="3"/>
                     </svg>
 
-                    <!-- Eye Slash Icon -->
+                    <!-- Eye slash icon (visible when password is shown) -->
                     <svg xmlns="http://www.w3.org/2000/svg"
                          class="w-6 h-6 eye-closed hidden"
                          fill="none" viewBox="0 0 24 24"
@@ -81,25 +81,26 @@
                 </button>
             </div>
 
+            <!-- Submit button triggers POST to LoginServlet -->
             <button type="submit"
                     class="mt-4 py-4 rounded-xl text-xl font-semibold
                            bg-white text-[#005461]
-                           shadow-xl hover:shadow-2xl
-                           hover:bg-[#f7e5e3]
-                           hover:scale-105
-                           transition-all duration-300">
+                           hover:scale-105 transition-all">
                 Login
             </button>
         </form>
 
         <p class="mt-10 text-center text-lg">
             Don't have an account?
-            <a href="signup.jsp" class="font-semibold underline">Sign Up</a>
+            <a href="signup.jsp" class="font-semibold underline"> <!-- JSP → JSP connection to signup.jsp -->
+                Sign Up
+            </a>
         </p>
 
     </div>
 </div>
 
+<!-- JavaScript for show/hide password -->
 <script>
 function togglePassword(id, btn) {
     const input = document.getElementById(id);
