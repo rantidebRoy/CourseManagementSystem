@@ -1,14 +1,26 @@
-<%@ page import="cse.web.MongoDBConnection, com.mongodb.client.MongoDatabase, com.mongodb.client.MongoCollection, org.bson.Document"%>
-<%@ page session="true"%>
+<%@ page import="cse.web.MongoDBConnection,
+                 com.mongodb.client.MongoDatabase,
+                 com.mongodb.client.MongoCollection,
+                 org.bson.Document"%>
+
+<%@ page session="true"%> <%-- Enables HTTP session for authentication & authorization --%>
+
 <%
+    // ===== Session-based access control =====
+    // Fetch role & username stored by LoginServlet
     String role = (String) session.getAttribute("role");
     String student = (String) session.getAttribute("username");
+
+    // Block unauthorized access (URL protection)
     if(role == null || !"student".equals(role)) {
-        response.sendRedirect("home.jsp");
+        response.sendRedirect("home.jsp"); // Redirect to public home
         return;
     }
 
+    // ===== Database connection (shared utility class) =====
     MongoDatabase db = MongoDBConnection.getDatabase();
+
+    // MongoDB collections used in this dashboard
     MongoCollection<Document> courses = db.getCollection("courses");
     MongoCollection<Document> regs = db.getCollection("registrations");
 %>
@@ -22,10 +34,9 @@
 </head>
 
 <body class="min-h-screen bg-gradient-to-br
-             from-slate-800
-             via-slate-900
-             to-black">
+             from-slate-800 via-slate-900 to-black">
 
+<!-- Logout form → mapped to LogoutServlet -->
 <div class="flex justify-end p-6">
     <form action="logout" method="post">
         <button class="bg-red-600 text-white px-6 py-2 rounded-lg shadow">
@@ -38,19 +49,25 @@
 
 <div class="bg-[#005461]/80 backdrop-blur-xl text-white rounded-3xl shadow-2xl p-12">
 
+    <!-- Personalized greeting using session username -->
     <h1 class="text-5xl font-bold mb-6 drop-shadow text-center">
-    Welcome <span class="text-white/90"><%= student%>!</span>
-</h1>
+        Welcome <span class="text-white/90"><%= student %>!</span>
+    </h1>
 
-
-    <!-- Register -->
+    <!-- ===== Course Registration ===== -->
     <div class="mb-10">
         <h2 class="text-2xl font-semibold mb-4">Register for Course</h2>
+
+        <!-- Form submits to RegisterCourseServlet -->
         <form action="RegisterCourseServlet" method="post"
               class="flex gap-4">
+
+            <!-- Course list dynamically loaded from MongoDB -->
             <select name="courseCode" required
                     class="flex-1 p-4 rounded-lg text-[#005461] font-semibold shadow">
                 <option value="">Select Course</option>
+
+                <%-- Iterate through all available courses --%>
                 <% for(Document c : courses.find()) { %>
                     <option value="<%= c.getString("code") %>">
                         <%= c.getString("name") %>
@@ -64,13 +81,16 @@
         </form>
     </div>
 
-    <!-- My Courses -->
+    <!-- ===== Registered Courses ===== -->
     <div class="bg-white/90 text-[#005461] rounded-2xl p-8 shadow-xl">
         <h2 class="text-2xl font-bold mb-6">My Courses</h2>
 
+        <%-- Fetch only courses registered by this student --%>
         <% for(Document r : regs.find(new Document("student", student))) {
-            Document c = courses.find(new Document("code", r.getString("courseCode"))).first();
-            if(c != null) { %>
+               Document c = courses
+                   .find(new Document("code", r.getString("courseCode")))
+                   .first();
+               if(c != null) { %>
 
         <div class="flex justify-between items-center border-b py-4">
             <div>
@@ -78,8 +98,10 @@
                 <p class="text-sm opacity-70"><%= c.getString("code") %></p>
             </div>
 
+            <!-- Unregister request → UnregisterCourseServlet -->
             <form action="UnregisterCourseServlet" method="post">
-                <input type="hidden" name="courseCode" value="<%= c.getString("code") %>">
+                <input type="hidden" name="courseCode"
+                       value="<%= c.getString("code") %>">
                 <button class="bg-red-600 text-white px-5 py-2 rounded-lg shadow">
                     Remove
                 </button>

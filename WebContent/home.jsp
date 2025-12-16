@@ -5,20 +5,14 @@
 <html lang="en">
 <head>
 
-    <!-- =========================================
-         META CONFIGURATION
-         ========================================= -->
+    
     <meta charset="UTF-8">
     <title>Home | Course Management System</title>
 
-    <!-- =========================================
-         TAILWIND CSS (CDN)
-         ========================================= -->
+    
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- =========================================
-         CUSTOM ANIMATION STYLES
-         ========================================= -->
+    
     <style>
         @keyframes enter {
             0% {
@@ -83,18 +77,10 @@
                 resources efficiently in one centralized platform.
             </p>
 
-            <!-- =====================================
-                 NAVIGATION / PAGE LINKING SECTION
-                 These links connect this JSP page
-                 with other JSP pages or Servlets
-                 ===================================== -->
+            <!--  NAVIGATION / PAGE LINKING SECTION These links connect this JSP page with other JSP pages or Servlets -->
             <div class="flex flex-col sm:flex-row gap-8 justify-center">
 
-                <!-- =================================
-                     LOGIN PAGE CONNECTION
-                     Redirects the user to login.jsp
-                     where authentication is handled
-                     ================================= -->
+                <!-- LOGIN PAGE CONNECTION -->
                 <a href="login.jsp"
                    class="px-16 py-5 text-xl font-semibold
                           rounded-xl bg-white text-[#005461]
@@ -106,11 +92,7 @@
                     Login
                 </a>
 
-                <!-- =================================
-                     SIGNUP PAGE CONNECTION
-                     Redirects the user to signup.jsp
-                     where new user registration is handled
-                     ================================= -->
+                <!-- SIGNUP PAGE CONNECTION -->
                 <a href="signup.jsp"
                    class="px-16 py-5 text-xl font-semibold
                           rounded-xl bg-white text-[#005461]
@@ -126,12 +108,10 @@
         </div>
     </div>
 
-    <!-- =========================================
-         FOOTER SECTION
-         ========================================= -->
+    
     <footer
         class="absolute bottom-6 text-white
-               text-sm opacity-90 text-center">
+               text-xl opacity-90 text-center">
         © 2025 Course Management System |
         All Rights Reserved |
         2022331023_057

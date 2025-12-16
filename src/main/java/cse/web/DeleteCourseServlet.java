@@ -12,20 +12,25 @@ public class DeleteCourseServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        // 1. Get session and verify admin role
         HttpSession session = request.getSession();
         String role = (String) session.getAttribute("role");
-        if(role == null || !"admin".equals(role)) {
-            response.sendRedirect("home.jsp");
+        if (role == null || !"admin".equals(role)) {
+            response.sendRedirect("home.jsp"); // Unauthorized access
             return;
         }
 
+        // 2. Get course code from admin.jsp delete form
         String courseCode = request.getParameter("courseCode");
-        if(courseCode != null && !courseCode.isEmpty()) {
+
+        if (courseCode != null && !courseCode.isEmpty()) {
+            // 3. Connect to MongoDB and delete the course document
             MongoDatabase db = MongoDBConnection.getDatabase();
             MongoCollection<Document> courses = db.getCollection("courses");
             courses.deleteOne(new Document("code", courseCode));
         }
 
-        response.sendRedirect("admin.jsp"); // reload page after deletion
+        // 4. Redirect back to admin dashboard after deletion
+        response.sendRedirect("admin.jsp");
     }
 }

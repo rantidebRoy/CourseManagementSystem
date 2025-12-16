@@ -12,17 +12,22 @@ public class UnregisterCourseServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        // 1. Get logged-in student from session
         HttpSession session = request.getSession();
         String student = (String) session.getAttribute("username");
+
+        // 2. Get course code to unregister
         String courseCode = request.getParameter("courseCode");
 
+        // 3. Connect to MongoDB registrations collection
         MongoDatabase db = MongoDBConnection.getDatabase();
         MongoCollection<Document> regs = db.getCollection("registrations");
 
-        // Delete the registration
+        // 4. Delete the registration document
         regs.deleteOne(new Document("student", student)
                            .append("courseCode", courseCode));
 
+        // 5. Redirect back to student dashboard
         response.sendRedirect("student.jsp");
     }
 }

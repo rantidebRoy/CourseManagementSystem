@@ -7,7 +7,7 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Optional: Page load animation -->
+    
     <style>
         @keyframes enter {
             0% { opacity: 0; transform: translateY(40px) scale(0.95); }
